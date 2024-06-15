@@ -10,7 +10,9 @@ const handleUsernameInput = (e: Event) => {
 
 const handleJoinGame = () => {
   console.log("Player Name:", username.value);
+  
   // Save to local storage
+  localStorage.setItem('playerName', username.value);
 };
 
 </script>
