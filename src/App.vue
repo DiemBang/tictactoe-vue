@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import GameBoard from './components/GameBoard.vue'
+import JoinGamePage from './components/JoinGamePage.vue'
 </script>
 
 <template>
-  <h1>hello</h1>
+  <h1>Tic Tac Toe</h1>
+  <JoinGamePage />
   <GameBoard />
 </template>
 
