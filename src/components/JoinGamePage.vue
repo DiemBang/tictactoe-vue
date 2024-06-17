@@ -1,40 +1,53 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const username = ref("");
+const player1 = ref("");
+const player2 = ref("");
 
-const handleUsernameInput = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  username.value = target.value;
-};
+const step = ref(1);
 
 const handleJoinGame = () => {
-  console.log("Player Name:", username.value);
-
-  // Save to local storage
-  localStorage.setItem("playerName", username.value);
-  emit('joinGame', username.value);
+  if (step.value === 1) {
+    localStorage.setItem("player1Name", player1.value);
+    step.value = 2;
+  } else if (step.value === 2) {
+    localStorage.setItem("player2Name", player2.value);
+    emit("joinGame", player1.value, player2.value);
+  }
 };
 
-const emit = defineEmits<{ (event: 'joinGame', name: string): void }>();
+const emit = defineEmits<{
+  (event: "joinGame", player1: string, player2: string): void;
+}>();
 </script>
 
 <template>
   <div id="playerInput">
-    <h2>Enter your name to join the game</h2>
+    <h2 v-if="step === 1">Enter Player 1's name</h2>
+    <h2 v-if="step === 2">Enter Player 2's name</h2>
 
     <form @submit.prevent="handleJoinGame">
-      <div>
+        <div v-if="step === 1">
         
         <input
           type="text"
-          id="username"
-          v-model="username"
-          @input="handleUsernameInput"
-          placeholder="Your name"
+          id="player1"
+          v-model="player1"
+          placeholder="Player 1's name"
         />
-
-        <button type="submit" @click.prevent="handleJoinGame">Join game</button>
+      </div>
+      <div v-if="step === 2">
+        
+        <input
+          type="text"
+          id="player2"
+          v-model="player2"
+          placeholder="Player 2's name"
+        />
+      </div>
+      <div>
+        <button v-if="step === 1" type="submit">Next</button>
+        <button v-else="step === 2" type="submit">Join game</button>
       </div>
     </form>
   </div>
@@ -45,7 +58,7 @@ const emit = defineEmits<{ (event: 'joinGame', name: string): void }>();
   max-width: 400px;
   margin: auto;
   padding: 1em;
-  
+ 
 }
 
 #playerInput div {
