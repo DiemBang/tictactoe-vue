@@ -1,33 +1,32 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import Square from "./Square.vue"
 
-const clickedSquare = () => {};
 
-let square = ref<number[]>([]);
-for (let i = 0; i <= 9; i++) square.value.push(null);
+const board = ref<(string | null)[]>(Array(9).fill(null));
+
+
+
+
 </script>
 
 <template>
-  <div id="board">
-    <div class="square" v-for="(value, index) in 9" :key="index">
-        {{ square.value[index] }} 
+  <div id="gameBoard">
+    
+    <div class="board">
+      <Square
+        v-for="(value, index) in board"
+        :key="index"
+        :value="value"
+        
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-#board {
-  height: 400px;
-  width: 400px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.square {
-  width: 30%;
-  background-color: lightpink;
-  border: 1px solid black;
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 </style>
