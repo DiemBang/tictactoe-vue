@@ -23,8 +23,8 @@ const emit = defineEmits<{
 
 <template>
   <div id="playerInput">
-    <h2 v-if="step === 1">Enter Player 1's name</h2>
-    <h2 v-if="step === 2">Enter Player 2's name</h2>
+    <h2 v-if="step === 1">Enter Player X's name</h2>
+    <h2 v-if="step === 2">Enter Player O's name</h2>
 
     <form @submit.prevent="handleJoinGame">
         <div v-if="step === 1">
@@ -33,7 +33,7 @@ const emit = defineEmits<{
           type="text"
           id="player1"
           v-model="player1"
-          placeholder="Player 1's name"
+          placeholder="Player X's name"
         />
       </div>
       <div v-if="step === 2">
@@ -42,7 +42,7 @@ const emit = defineEmits<{
           type="text"
           id="player2"
           v-model="player2"
-          placeholder="Player 2's name"
+          placeholder="Player O's name"
         />
       </div>
       <div>
