@@ -1,34 +1,39 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import Square from "./Square.vue"
-import GameStatus from "./GameStatus.vue"
-import JoinGamePage from "./JoinGamePage.vue"
+import Square from "./Square.vue";
+import GameStatus from "./GameStatus.vue";
+import JoinGamePage from "./JoinGamePage.vue";
 
-const props = defineProps({
-  player1: String,
-  player2: String,
-});
+// const props = defineProps({
+//   player1: String,
+//   player2: String,
+// });
 
 const gamePhase = ref<"setup" | "play">("setup");
 
 const board = ref<(string | null)[]>(Array(9).fill(null));
 const currentPlayer = ref("X");
-const status = ref<string>(`Player ${props.player1}'s turn` );
+
 const gameOver = ref<boolean>(false);
 
+const player1 = ref<string | null>(null);
+const player2 = ref<string | null>(null);
+const status = ref<string>(`Player ${player1.value}'s turn`);
 
 const player1Score = ref(0);
 const player2Score = ref(0);
 
-const player1Symbol = ref('X');
+const player1Symbol = ref("X");
 
 const startGame = (player1Name: string, player2Name: string) => {
   gamePhase.value = "play";
   localStorage.setItem("player1", player1Name);
   localStorage.setItem("player2", player2Name);
   status.value = `Player ${player1Name}'s turn`;
+  console.log("starting game");
+  player1.value = player1Name;
+  player2.value = player2Name;
 };
-
 
 const handleSquareClick = (index: number) => {
   if (!gameOver.value && board.value[index] === null) {
@@ -36,9 +41,11 @@ const handleSquareClick = (index: number) => {
     checkForWinner();
     if (!gameOver.value) {
       currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
-      status.value = `Player ${currentPlayer.value === 'X' ? props.player1 : props.player2}'s turn`;
+      status.value = `Player ${
+        currentPlayer.value === "X" ? player1.value : player2.value
+      }'s turn`;
     }
-    console.log(props.player1);
+    console.log(player1.value);
   }
 };
 
@@ -64,9 +71,9 @@ const checkForWinner = () => {
     ) {
       gameOver.value = true;
       if (board.value[a] === player1Symbol.value) {
-        status.value = `${props.player1} wins!`;
+        status.value = `${player1.value} wins!`;
       } else {
-        status.value = `${props.player2} wins!`;
+        status.value = `${player2.value} wins!`;
       }
 
       // To-do: add players score
@@ -83,7 +90,7 @@ const checkForWinner = () => {
 const resetGame = () => {
   board.value = Array(9).fill(null);
   currentPlayer.value = "X";
-  status.value = `Player ${props.player1}'s turn`;
+  status.value = `Player ${player1.value}'s turn`;
   gameOver.value = false;
 };
 
@@ -91,8 +98,8 @@ const resetToInitialState = () => {
   gamePhase.value = "setup";
   localStorage.removeItem("player1");
   localStorage.removeItem("player2");
+  resetGame();
 };
-
 </script>
 
 <template>

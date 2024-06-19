@@ -13,9 +13,16 @@ const handleJoinGame = () => {
   if (step.value === 1) {
     localStorage.setItem("player1Name", player1.value);
     step.value = 2;
+    console.log("step 1");
+    console.log(player1.value);
+    
+    
   } else if (step.value === 2) {
     localStorage.setItem("player2Name", player2.value);
     emit("joinGame", player1.value, player2.value);
+    console.log("step 2");
+    console.log(player2.value);
+    
   }
 };
 </script>
