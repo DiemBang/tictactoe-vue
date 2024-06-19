@@ -100,6 +100,8 @@ const resetToInitialState = () => {
   gamePhase.value = "setup";
   localStorage.removeItem("player1");
   localStorage.removeItem("player2");
+  player1Score.value = 0;
+  player2Score.value = 0;
   resetGame();
 };
 </script>
