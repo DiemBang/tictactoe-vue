@@ -3,11 +3,7 @@ import { ref } from "vue";
 import Square from "./Square.vue";
 import GameStatus from "./GameStatus.vue";
 import JoinGamePage from "./JoinGamePage.vue";
-
-// const props = defineProps({
-//   player1: String,
-//   player2: String,
-// });
+import ScoreBoard from "./ScoreBoard.vue";
 
 const gamePhase = ref<"setup" | "play">("setup");
 
@@ -49,7 +45,13 @@ const handleSquareClick = (index: number) => {
   }
 };
 
-const addScore = (index: number) => {};
+const addScore = (winnerSymbol: string) => {
+  if (winnerSymbol === player1Symbol.value) {
+    player1Score.value++;
+  } else {
+    player2Score.value++;
+  }
+};
 
 const checkForWinner = () => {
   const winningCombinations = [
@@ -76,8 +78,8 @@ const checkForWinner = () => {
         status.value = `${player2.value} wins!`;
       }
 
-      // To-do: add players score
-      addScore(a);
+      // Add players score
+      addScore(board.value[a]);
       return;
     }
   }
@@ -108,6 +110,7 @@ const resetToInitialState = () => {
       <JoinGamePage @joinGame="startGame" />
     </div>
     <div v-else>
+      <ScoreBoard :player1="player1" :player2="player2" :player1Score="player1Score" :player2Score="player2Score" />
       <div id="gameBoard">
         <GameStatus :status="status" />
         <div class="board">
