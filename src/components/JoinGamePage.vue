@@ -3,8 +3,11 @@ import { ref } from "vue";
 
 const player1 = ref("");
 const player2 = ref("");
-
 const step = ref(1);
+
+const emit = defineEmits<{
+  (event: "joinGame", player1: string, player2: string): void;
+}>();
 
 const handleJoinGame = () => {
   if (step.value === 1) {
@@ -15,10 +18,6 @@ const handleJoinGame = () => {
     emit("joinGame", player1.value, player2.value);
   }
 };
-
-const emit = defineEmits<{
-  (event: "joinGame", player1: string, player2: string): void;
-}>();
 </script>
 
 <template>
@@ -27,8 +26,7 @@ const emit = defineEmits<{
     <h2 v-if="step === 2">Enter Player O's name</h2>
 
     <form @submit.prevent="handleJoinGame">
-        <div v-if="step === 1">
-        
+      <div v-if="step === 1">
         <input
           type="text"
           id="player1"
@@ -37,7 +35,6 @@ const emit = defineEmits<{
         />
       </div>
       <div v-if="step === 2">
-        
         <input
           type="text"
           id="player2"
@@ -47,7 +44,7 @@ const emit = defineEmits<{
       </div>
       <div>
         <button v-if="step === 1" type="submit">Next</button>
-        <button v-else="step === 2" type="submit">Join game</button>
+        <button v-if="step === 2" type="submit">Join game</button>
       </div>
     </form>
   </div>

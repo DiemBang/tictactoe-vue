@@ -2,11 +2,14 @@
 import { ref } from "vue";
 import Square from "./Square.vue"
 import GameStatus from "./GameStatus.vue"
+import JoinGamePage from "./JoinGamePage.vue"
 
 const props = defineProps({
   player1: String,
   player2: String,
 });
+
+const gamePhase = ref<"setup" | "play">("setup");
 
 const board = ref<(string | null)[]>(Array(9).fill(null));
 const currentPlayer = ref("X");
@@ -19,6 +22,12 @@ const player2Score = ref(0);
 
 const player1Symbol = ref('X');
 
+const startGame = (player1Name: string, player2Name: string) => {
+  gamePhase.value = "play";
+  localStorage.setItem("player1", player1Name);
+  localStorage.setItem("player2", player2Name);
+  status.value = `Player ${player1Name}'s turn`;
+};
 
 
 const handleSquareClick = (index: number) => {
@@ -78,24 +87,36 @@ const resetGame = () => {
   gameOver.value = false;
 };
 
+const resetToInitialState = () => {
+  gamePhase.value = "setup";
+  localStorage.removeItem("player1");
+  localStorage.removeItem("player2");
+};
+
 </script>
 
 <template>
-  <div id="gameBoard">
-    <GameStatus :status="status" />
-    
-    <div class="board">
-      <Square
-        v-for="(value, index) in board"
-        :key="index"
-        :value="value"
-        @click="handleSquareClick(index)"
-      />
+  <div id="gameContainer">
+    <div v-if="gamePhase === 'setup'">
+      <JoinGamePage @joinGame="startGame" />
     </div>
-    <div>
-      <button @click="resetGame">Reset Game</button>
+    <div v-else>
+      <div id="gameBoard">
+        <GameStatus :status="status" />
+        <div class="board">
+          <Square
+            v-for="(value, index) in board"
+            :key="index"
+            :value="value"
+            @click="handleSquareClick(index)"
+          />
+        </div>
+        <div>
+          <p><button @click="resetGame">Reset Game</button></p>
+          <p><button @click="resetToInitialState">Restart Game</button></p>
+        </div>
+      </div>
     </div>
-    
   </div>
 </template>
 
