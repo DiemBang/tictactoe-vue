@@ -1,23 +1,32 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Square from "./Square.vue"
-
-
-const board = ref<(string | null)[]>(Array(9).fill(null));
-const currentPlayer = ref("X");
-const status = ref("Player X's turn");
+import GameStatus from "./GameStatus.vue"
 
 const props = defineProps({
   player1: String,
   player2: String,
 });
 
+const board = ref<(string | null)[]>(Array(9).fill(null));
+const currentPlayer = ref("X");
+const status = ref<string>(`Player ${props.player1}'s turn` );
+
+const player1Score = ref(0);
+const player2Score = ref(0);
+
+const player1Symbol = ref('X');
+
+
+
 const handleSquareClick = (index: number) => {
   if (board.value[index] === null) {
     board.value[index] = currentPlayer.value;
-    currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
-    status.value = `Player ${currentPlayer.value}'s turn`;
-    
+    checkForWinner();
+    if (!status.value.includes("wins") && !status.value.includes("draw")) {
+      currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
+      status.value = `Player ${currentPlayer.value === 'X' ? props.player1 : props.player2}'s turn`;
+    }
     console.log(props.player1);
   }
 };
@@ -58,12 +67,11 @@ const checkForWinner = () => {
   }
 };
 
-
-
 </script>
 
 <template>
   <div id="gameBoard">
+    <GameStatus :status="status" />
     
     <div class="board">
       <Square
