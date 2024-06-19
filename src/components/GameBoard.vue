@@ -71,6 +71,13 @@ const checkForWinner = () => {
   }
 };
 
+const resetGame = () => {
+  board.value = Array(9).fill(null);
+  currentPlayer.value = "X";
+  status.value = `Player ${props.player1}'s turn`;
+  gameOver.value = false;
+};
+
 </script>
 
 <template>
@@ -85,6 +92,10 @@ const checkForWinner = () => {
         @click="handleSquareClick(index)"
       />
     </div>
+    <div>
+      <button @click="resetGame">Reset Game</button>
+    </div>
+    
   </div>
 </template>
 
