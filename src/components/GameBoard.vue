@@ -11,6 +11,8 @@ const props = defineProps({
 const board = ref<(string | null)[]>(Array(9).fill(null));
 const currentPlayer = ref("X");
 const status = ref<string>(`Player ${props.player1}'s turn` );
+const gameOver = ref<boolean>(false);
+
 
 const player1Score = ref(0);
 const player2Score = ref(0);
@@ -20,10 +22,10 @@ const player1Symbol = ref('X');
 
 
 const handleSquareClick = (index: number) => {
-  if (board.value[index] === null) {
+  if (!gameOver.value && board.value[index] === null) {
     board.value[index] = currentPlayer.value;
     checkForWinner();
-    if (!status.value.includes("wins") && !status.value.includes("draw")) {
+    if (!gameOver.value) {
       currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
       status.value = `Player ${currentPlayer.value === 'X' ? props.player1 : props.player2}'s turn`;
     }
@@ -51,6 +53,7 @@ const checkForWinner = () => {
       board.value[a] === board.value[b] &&
       board.value[a] === board.value[c]
     ) {
+      gameOver.value = true;
       if (board.value[a] === player1Symbol.value) {
         status.value = `${props.player1} wins!`;
       } else {
@@ -63,6 +66,7 @@ const checkForWinner = () => {
     }
   }
   if (!board.value.includes(null)) {
+    gameOver.value = true;
     status.value = "It's a draw!";
   }
 };
