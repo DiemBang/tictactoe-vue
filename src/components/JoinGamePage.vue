@@ -51,7 +51,7 @@ const handleJoinGame = () => {
       </div>
       <div>
         <button v-if="step === 1" type="submit">Next</button>
-        <button v-if="step === 2" type="submit">Join game</button>
+        <button v-if="step === 2" type="submit">Join Game</button>
       </div>
     </form>
   </div>
