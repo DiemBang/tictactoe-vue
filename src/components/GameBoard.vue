@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Square from "./Square.vue";
 import GameStatus from "./GameStatus.vue";
 import JoinGamePage from "./JoinGamePage.vue";
@@ -29,6 +29,7 @@ const startGame = (player1Name: string, player2Name: string) => {
   console.log("starting game");
   player1.value = player1Name;
   player2.value = player2Name;
+  saveGameState();
 };
 
 const handleSquareClick = (index: number) => {
@@ -40,6 +41,7 @@ const handleSquareClick = (index: number) => {
       status.value = `Player ${
         currentPlayer.value === "X" ? player1.value : player2.value
       }'s turn`;
+      saveGameState();
     }
     console.log(player1.value);
   }
@@ -80,12 +82,14 @@ const checkForWinner = () => {
 
       // Add players score
       addScore(board.value[a]);
+      saveGameState();
       return;
     }
   }
   if (!board.value.includes(null)) {
     gameOver.value = true;
     status.value = "It's a draw!";
+    saveGameState();
   }
 };
 
@@ -94,6 +98,7 @@ const resetGame = () => {
   currentPlayer.value = "X";
   status.value = `Player ${player1.value}'s turn`;
   gameOver.value = false;
+  saveGameState();
 };
 
 const resetToInitialState = () => {
@@ -104,6 +109,41 @@ const resetToInitialState = () => {
   player2Score.value = 0;
   resetGame();
 };
+
+const saveGameState = () => {
+  const gameState = {
+    gamePhase: gamePhase.value,
+    board: board.value,
+    currentPlayer: currentPlayer.value,
+    gameOver: gameOver.value,
+    player1: player1.value,
+    player2: player2.value,
+    status: status.value,
+    player1Score: player1Score.value,
+    player2Score: player2Score.value,
+  };
+  localStorage.setItem("gameState", JSON.stringify(gameState));
+};
+
+const loadGameState = () => {
+  const savedState = localStorage.getItem("gameState");
+  if (savedState) {
+    const gameState = JSON.parse(savedState);
+    gamePhase.value = gameState.gamePhase;
+    board.value = gameState.board;
+    currentPlayer.value = gameState.currentPlayer;
+    gameOver.value = gameState.gameOver;
+    player1.value = gameState.player1;
+    player2.value = gameState.player2;
+    status.value = gameState.status;
+    player1Score.value = gameState.player1Score;
+    player2Score.value = gameState.player2Score;
+  }
+};
+
+onMounted(() => {
+  loadGameState();
+});
 </script>
 
 <template>
@@ -112,7 +152,12 @@ const resetToInitialState = () => {
       <JoinGamePage @joinGame="startGame" />
     </div>
     <div v-else>
-      <ScoreBoard :player1="player1" :player2="player2" :player1Score="player1Score" :player2Score="player2Score" />
+      <ScoreBoard
+        :player1="player1"
+        :player2="player2"
+        :player1Score="player1Score"
+        :player2Score="player2Score"
+      />
       <div id="gameBoard">
         <GameStatus :status="status" />
         <div class="board">
