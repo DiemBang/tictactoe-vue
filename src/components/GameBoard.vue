@@ -137,4 +137,8 @@ const resetToInitialState = () => {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+
+button {
+  width: 9em;
+}
 </style>
