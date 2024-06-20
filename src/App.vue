@@ -18,7 +18,9 @@ const handleJoinGame = (name1: string, name2: string) => {
 
 <template>
   <div class="site-background">
-    <h1 class="neon-text">Tic Tac Toe</h1>
+    <header class="header">
+      <h1 class="neon-text">Tic Tac Toe</h1>
+    </header>
     <div id="app">
       <GameBoard />
     </div>
@@ -27,13 +29,17 @@ const handleJoinGame = (name1: string, name2: string) => {
 
 <style scoped>
 .site-background {
-  background-color: black;
-  color: white; /* Optional: Set a default text color to ensure readability */
-  min-height: 100vh; /* Ensure it covers the full viewport height */
+  background: linear-gradient(135deg, #000, #111);
+  color: white;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.header {
+  text-align: center;
+  padding: 1em;
 }
 .neon-text {
   font-family: "Arial", sans-serif;
