@@ -179,21 +179,41 @@ onMounted(() => {
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .board > div {
-  border: 1px solid white; /* Change border color to white */
-  background-color: black; /* Match the background color of the board */
+  border: 1px solid white;
+  background-color: black; 
   width: 100px;
   height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2em;
-  color: white; /* Make text inside the cells white */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.board > div:hover {
+  background-color: #333; 
 }
 
 button {
   width: 9em;
+  padding: 0.5em 1em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0.5em;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
 </style>
