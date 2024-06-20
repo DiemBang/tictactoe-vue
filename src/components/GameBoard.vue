@@ -14,7 +14,7 @@ const gameOver = ref<boolean>(false);
 
 const player1 = ref<string | null>(null);
 const player2 = ref<string | null>(null);
-const status = ref<string>(`Player ${player1.value}'s turn`);
+const status = ref<string>(`${player1.value}'s turn`);
 
 const player1Score = ref(0);
 const player2Score = ref(0);
@@ -25,7 +25,7 @@ const startGame = (player1Name: string, player2Name: string) => {
   gamePhase.value = "play";
   localStorage.setItem("player1", player1Name);
   localStorage.setItem("player2", player2Name);
-  status.value = `Player ${player1Name}'s turn`;
+  status.value = `${player1Name}'s turn`;
   player1.value = player1Name;
   player2.value = player2Name;
   saveGameState();
@@ -37,7 +37,7 @@ const handleSquareClick = (index: number) => {
     checkForWinner();
     if (!gameOver.value) {
       currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
-      status.value = `Player ${
+      status.value = `${
         currentPlayer.value === "X" ? player1.value : player2.value
       }'s turn`;
       saveGameState();
@@ -94,7 +94,7 @@ const checkForWinner = () => {
 const resetGame = () => {
   board.value = Array(9).fill(null);
   currentPlayer.value = "X";
-  status.value = `Player ${player1.value}'s turn`;
+  status.value = `${player1.value}'s turn`;
   gameOver.value = false;
   saveGameState();
 };
