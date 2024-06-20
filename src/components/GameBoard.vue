@@ -26,7 +26,6 @@ const startGame = (player1Name: string, player2Name: string) => {
   localStorage.setItem("player1", player1Name);
   localStorage.setItem("player2", player2Name);
   status.value = `Player ${player1Name}'s turn`;
-  console.log("starting game");
   player1.value = player1Name;
   player2.value = player2Name;
   saveGameState();
@@ -43,7 +42,6 @@ const handleSquareClick = (index: number) => {
       }'s turn`;
       saveGameState();
     }
-    console.log(player1.value);
   }
 };
 
