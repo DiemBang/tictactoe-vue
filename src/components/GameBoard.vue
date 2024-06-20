@@ -181,6 +181,18 @@ onMounted(() => {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.board > div {
+  border: 1px solid white; /* Change border color to white */
+  background-color: black; /* Match the background color of the board */
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  color: white; /* Make text inside the cells white */
+}
+
 button {
   width: 9em;
 }
