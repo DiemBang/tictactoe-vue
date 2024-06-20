@@ -8,6 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
+  <h3>Scoreboard</h3>
   <div class="scoreboard">
     <div>{{ player1 }}: {{ player1Score }}</div>
     <div>{{ player2 }}: {{ player2Score }}</div>
