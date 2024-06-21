@@ -11,8 +11,8 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div class="square" @click="handleClick">
-    {{ value }}
+   <div class="square" @click="handleClick">
+    <span v-if="value" :class="['neon', value === 'X' ? 'x' : 'o']">{{ value }}</span>
   </div>
 </template>
 
@@ -26,5 +26,16 @@ const handleClick = () => {
   font-size: 2em;
   border: 1px solid #000;
   cursor: pointer;
+}
+
+.neon {
+  font-family: 'Arial', sans-serif;
+  color: #007bff;
+  text-shadow: 
+    0 0 5px #007bff,
+    0 0 10px #007bff,
+    0 0 20px #007bff,
+    0 0 40px #007bff,
+    0 0 80px #007bff;
 }
 </style>
