@@ -12,8 +12,8 @@ const currentPlayer = ref("X");
 
 const gameOver = ref<boolean>(false);
 
-const player1 = ref<string | null>(null);
-const player2 = ref<string | null>(null);
+const player1 = ref<string>("");
+const player2 = ref<string>("");
 const status = ref<string>(`${player1.value}'s turn`);
 
 const player1Score = ref(0);
