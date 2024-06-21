@@ -28,6 +28,9 @@ const handleJoinGame = (name1: string, name2: string) => {
 </template>
 
 <style scoped>
+* {
+  font-family: 'Roboto', sans-serif;
+}
 .site-background {
   background: linear-gradient(135deg, #000, #111);
   color: white;
