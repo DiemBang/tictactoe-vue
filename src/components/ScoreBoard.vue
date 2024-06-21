@@ -16,6 +16,9 @@ const props = defineProps({
 </template>
 
 <style scoped>
+h3 {
+  text-transform: uppercase;
+}
 .scoreboard {
   margin-bottom: 1em;
   display: flex;
