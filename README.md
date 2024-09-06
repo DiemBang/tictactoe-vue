@@ -47,6 +47,7 @@ Then, open your browser and go to the link to play the game.
 
 ## Screenshots
 
-![Tic Tac Toe Game - Join Game Page](src/assets/screenshot1.png)
-![Tic Tac Toe Game - Game Page](src/assets/screenshot2.png)
-![Tic Tac Toe Game - Player won!](src/assets/screenshot3.png)
+<img src="src/assets/screenshot1.png" alt="Tic Tac Toe Game - Join Game Page" width="400" />
+<img src="src/assets/screenshot2.png" alt="Tic Tac Toe Game - Game Page" width="400" />
+<img src="src/assets/screenshot3.png" alt="Tic Tac Toe Game - Player won!" width="400" />
+
