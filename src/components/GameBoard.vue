@@ -99,6 +99,21 @@ const resetGame = () => {
   saveGameState();
 };
 
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * max);
+}
+
+const setRandomStartPlayer = () => {
+  const startPlayer = getRandomInt(2);
+  if (startPlayer === 0) {
+    currentPlayer.value = "X";
+    status.value = `${player1.value}'s turn`;
+  } else {
+    currentPlayer.value = "0";
+    status.value = `${player2.value}'s turn`;
+  } 
+}
+
 const resetToInitialState = () => {
   gamePhase.value = "setup";
   localStorage.removeItem("player1");
