@@ -29,8 +29,8 @@ const handleJoinGame = () => {
 
 <template>
   <div id="playerInput">
-    <h2 v-if="step === 1">Enter Player X's name</h2>
-    <h2 v-if="step === 2">Enter Player O's name</h2>
+    <h2 v-if="step === 1">Enter Player 1's name (X):</h2>
+    <h2 v-if="step === 2">Enter Player 2's name (O):</h2>
 
     <form @submit.prevent="handleJoinGame">
       <div v-if="step === 1">
@@ -38,7 +38,7 @@ const handleJoinGame = () => {
           type="text"
           id="player1"
           v-model="player1"
-          placeholder="Player X's name"
+          placeholder="Player 1's name"
         />
       </div>
       <div v-if="step === 2">
@@ -46,7 +46,7 @@ const handleJoinGame = () => {
           type="text"
           id="player2"
           v-model="player2"
-          placeholder="Player O's name"
+          placeholder="Player 2's name"
         />
       </div>
       <div>
